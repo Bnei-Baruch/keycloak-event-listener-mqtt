@@ -54,8 +54,8 @@ public class MQTTEventListenerProvider implements EventListenerProvider {
 
     @Override
     public void onEvent(Event event) {
-        // Ignore excluded events
-        if (excludedEvents == null || !excludedEvents.contains(event.getType())) {
+        // Take only login events
+        if (event.getType().toString() == "LOGIN") {
             sendMqttMessage(convertEvent(event));
         }
     }
@@ -63,9 +63,9 @@ public class MQTTEventListenerProvider implements EventListenerProvider {
     @Override
     public void onEvent(AdminEvent event, boolean includeRepresentation) {
         // Ignore excluded operations
-        if (excludedAdminEvents == null || !excludedAdminEvents.contains(event.getOperationType())) {
-            sendMqttMessage(convertAdminEvent(event));
-        }
+        //if (excludedAdminEvents == null || !excludedAdminEvents.contains(event.getOperationType())) {
+        //    sendMqttMessage(convertAdminEvent(event));
+        //}
     }
 
     private void sendMqttMessage(String event) {
